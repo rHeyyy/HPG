@@ -1,0 +1,34 @@
+{% load static %}
+<div id="body">
+<form method="POST" enctype="multipart/form-data" action="{% url 'update_user_profile' user.id %}" class="profile-form">
+    <div class="text-center">
+        <label for="id_profile_picture" class="form-label">{{ user.first_name }} {{ user.last_name }}</label>
+        {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" class="img-fluid rounded mb-3 profile-picture" alt="{{ user.last_name }}">
+        {% else %}
+        <img src="{% static 'default_profile.png' %}" class="img-fluid rounded mb-3 profile-picture" alt="Default Profile">
+        {% endif %}
+        <div class="file-input-wrapper">
+            <label for="id_profile_picture" class="file-label">Change Profile</label>
+            <input type="file" id="id_profile_picture" name="profile_picture" class="file-input">
+        </div>
+    </div>
+
+    {% csrf_token %}
+
+    <div class="form-group">
+        <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ user.first_name }}" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ user.last_name }}" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="username" class="form-control" placeholder="Username" value="{{ user.username }}" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ user.email }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+</form>
+</div>

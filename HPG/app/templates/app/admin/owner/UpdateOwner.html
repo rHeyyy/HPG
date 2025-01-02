@@ -1,0 +1,30 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_updateOwner' owner.pk %}" class="service-form-3">
+        <div class="form-layout-3">
+            
+
+            <!-- Form Fields -->
+            <div class="form-fields-3">
+                <h1 class="cool-heading">{{ owner.name }}</h1>
+
+                {% csrf_token %}
+                <div class="form-group-3 floating-label-group">
+                    <input type="text" id="id_owner_3" name="owner" class="form-control-3" placeholder=" " value="{{ owner.user }}" readonly />
+                    <label for="id_owner_3" class="floating-label">Owner</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input type="text" id="id_email_3" name="email" class="form-control-3" placeholder=" " value="{{ owner.email }}" readonly />
+                    <label for="id_email_3" class="floating-label">E-Mail</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input type="text" id="id_phone_3" name="phone" class="form-control-3" placeholder=" " value="{{ owner.phone }}" required />
+                    <label for="id_phone_3" class="floating-label">Phone Number</label>
+                </div>
+                <button type="submit" class="btn btn-primary-3">Update Owner</button>
+            </div>
+
+        </div>
+    </form>
+</div>

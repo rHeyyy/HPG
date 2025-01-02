@@ -1,0 +1,59 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_updatePet' pet.pk %}" class="service-form-3">
+        <div class="form-layout-3">
+            <!-- Image Section -->
+            <div class="form-image-3">
+                <label for="id_picture_3" class="form-label-3">Pet Picture</label>
+                {% if pet.picture %}
+                <img src="{{ pet.picture.url }}" class="img-fluid service-picture-3" alt="{{ pet.name }}">
+                {% else %}
+                <img src="{% static 'default_service.png' %}" class="img-fluid service-picture-3" alt="Default Service">
+                {% endif %}
+                <div class="file-input-wrapper-3">
+                    <label for="id_picture_3" class="file-label-3">Change Pet Picture</label>
+                    <input type="file" id="id_picture_3" name="picture" class="file-input-3">
+                </div>
+            </div>
+
+                <!-- Form Fields -->
+                <div class="form-fields-3">
+                    {% csrf_token %}
+                    <div class="form-group-3 floating-label-group">
+                        <select id="id_owner_3" name="owner" class="form-control-3" required>
+                            {% for owner in owners %}
+                            <option value="{{ owner.pk }}" {% if pet.owner == owner %}selected{% endif %}>{{ owner }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="id_owner_3" class="floating-label">Owner</label>
+                    </div>
+                    <div class="form-group-3 floating-label-group">
+                        <input type="text" id="id_name_3" name="name" class="form-control-3" placeholder=" " value="{{ pet.name }}" required />
+                        <label for="id_name_3" class="floating-label">Pet Name</label>
+                    </div>
+                    <div class="form-group-3 floating-label-group">
+                        <select id="id_species_3" name="species" class="form-control-3" required>
+                            <option value="dog" {% if pet.species == "dog" %}selected{% endif %}>Dog</option>
+                            <option value="cat" {% if pet.species == "cat" %}selected{% endif %}>Cat</option>
+                        </select>
+                        <label for="id_species_3" class="floating-label">Species</label>
+                    </div>
+                    <div class="form-group-3 floating-label-group">
+                        <input type="text" id="id_breed_3" name="breed" class="form-control-3" placeholder=" " value="{{ pet.breed }}" required />
+                        <label for="id_breed_3" class="floating-label">Pet Breed</label>
+                    </div>
+                    <div class="form-group-3 floating-label-group">
+                        <input type="number" id="id_age_years_3" name="age_years" class="form-control-3" placeholder=" " value="{{ pet.age_years }}" min="0" />
+                        <label for="id_age_years_3" class="floating-label">Pet Age (Years)</label>
+                    </div>
+                    <div class="form-group-3 floating-label-group">
+                        <input type="number" id="id_age_months_3" name="age_months" class="form-control-3" placeholder=" " value="{{ pet.age_months }}" min="0" max="11" />
+                        <label for="id_age_months_3" class="floating-label">Pet Age (Months)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary-3">Update Pet</button>
+                </div>
+
+        </div>
+    </form>
+</div>

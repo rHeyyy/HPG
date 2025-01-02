@@ -1,0 +1,242 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <div id="header-section">
+        <h1>All Owner Accounts and Pet List</h1>
+    </div>
+    <input
+        type="text"
+        id="search-input"
+        class="owner"
+        placeholder="Search for owner..."
+    />
+</div>
+
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Service Management Section -->
+    <div id="users-section">
+        {% if owners %}
+        <!-- Services Table -->
+        <div id="services-list" class="list-section">
+            <table id="user-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Pet Picture</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>E-Mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-tbody" class="owner1">
+                    {% for owner in owners %}
+                    <tr>
+                        <!-- Pet Picture -->
+                        <td>
+                            {% for pet in owner.pets.all %}
+                            {% if pet.picture %}
+                            <img
+                                src="{{ pet.picture.url }}"
+                                class="img-fluid rounded"
+                                alt="{{ pet.name }}"
+                                style="max-width: 50px; height: 50px; margin-right: 5px;"
+                            />
+                            {% else %}
+                            <span>No image available</span>
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <!-- Owner Details -->
+                        <td>{{ owner.name }}</td>
+                        <td>{{ owner.phone }}</td>
+                        <td>{{ owner.email }}</td>
+                        <td>
+                            <a
+                                class="action-link edit-owner"
+                                href=""
+                                data-owner-id="{{ owner.pk }}"
+                            >
+                                <i class="fa-solid fa-pen" title="Edit Owner"></i>
+                            </a>
+                           <!-- |
+                            <a
+                                class="action-link delete-owner"
+                                href=""
+                                data-owner-id2="{{ owner.pk }}"
+                            >
+                                <i class="fa-solid fa-trash" title="Delete Owner"></i>
+                            </a> -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">No Owner found. Start by adding a new owner!</p>
+        {% endif %}
+    </div>
+</div>
+
+
+<!--UPDATE PET-->
+<div id="Edit-Owner-Modal" class="Edit-Owner-Modal">
+    <div class="Edit-Owner-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Edit-Owner-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--DELETE Owner
+<div id="Delete-Owner-Modal" class="Delete-Owner-Modal">
+    <div class="Delete-Owner-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Delete-Owner-modal-form-container">
+        </div>
+    </div>
+</div>-->
+
+<!--CREATE PET
+<div id="Create-Owner-Modal" class="Create-Owner-Modal">
+    <div class="Create-Owner-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Create-Owner-modal-form-container">
+           
+        </div>
+    </div>
+</div>-->
+
+
+
+
+<script>
+    // // create pet
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     const addownermodal = document.getElementById("Create-Owner-Modal");
+    //     const closeBtn = addownermodal.querySelector(".close-btn1");
+    //     const addownermodalFormContainer = document.getElementById("Create-Owner-modal-form-container");
+    //     const addownerLinks = document.querySelectorAll(".create-owner");
+    
+    //     // Handle clicking on the edit link
+    //     addownerLinks.forEach((link) => {
+    //         link.addEventListener("click", (e) => {
+    //             e.preventDefault();
+    
+    //             // Load the form dynamically via fetch
+    //             fetch(`/admin_owner/create/`)
+    //                 .then((response) => response.text())
+    //                 .then((data) => {
+    //                     addownermodalFormContainer.innerHTML = data;
+    //                     addownermodal.classList.add("show"); // Show the modal
+    //                 })
+    //                 .catch((error) => {
+    //                     addownermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+    //                     console.error("Error:", error);
+    //                 });
+    //         });
+    //     });
+    
+    //     // Close modal using the close button
+    //     closeBtn.addEventListener("click", () => {
+    //         addownermodal.classList.remove("show"); // Close the modal
+    //     });
+    // });
+    
+    // // Delete Pet
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     const delOwnermodal = document.getElementById("Delete-Owner-Modal");
+    //     const closeBtn = delOwnermodal.querySelector(".close-btn1");
+    //     const delOwnermodalFormContainer = document.getElementById("Delete-Owner-modal-form-container");
+    //     const delOwnerLinks = document.querySelectorAll(".delete-owner");
+    
+    //     // Handle clicking on the edit link
+    //     delOwnerLinks.forEach((link) => {
+    //         link.addEventListener("click", (e) => {
+    //             e.preventDefault();
+    //             const OwnerId = link.getAttribute("data-owner-id2");
+    
+    //             // Load the form dynamically via fetch
+    //             fetch(`/admin_owner/${OwnerId}/delete/`)
+    //                 .then((response) => response.text())
+    //                 .then((data) => {
+    //                     delOwnermodalFormContainer.innerHTML = data;
+    //                     delOwnermodal.classList.add("show"); // Show the modal
+    //                 })
+    //                 .catch((error) => {
+    //                     delOwnermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+    //                     console.error("Error:", error);
+    //                 });
+    //         });
+    //     });
+    
+    //     // Close modal using the close button
+    //     closeBtn.addEventListener("click", () => {
+    //         delOwnermodal.classList.remove("show"); // Close the modal
+    //     });
+    // });
+    
+    
+    
+    // Update Pet
+    document.addEventListener("DOMContentLoaded", () => {
+        const updateOwnermodal = document.getElementById("Edit-Owner-Modal");
+        const closeBtn = updateOwnermodal.querySelector(".close-btn1");
+        const OwnermodalFormContainer = document.getElementById("Edit-Owner-modal-form-container");
+        const editOwnerLinks = document.querySelectorAll(".edit-owner");
+    
+        // Handle clicking on the edit link
+        editOwnerLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const OwnerId = link.getAttribute("data-owner-id");
+    
+                // Load the form dynamically via fetch
+                fetch(`/admin_owner/${OwnerId}/edit/`)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        OwnermodalFormContainer.innerHTML = data;
+                        updateOwnermodal.classList.add("show"); // Show the modal
+                    })
+                    .catch((error) => {
+                        OwnermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                        console.error("Error:", error);
+                    });
+            });
+        });
+    
+        // Close modal using the close button
+        closeBtn.addEventListener("click", () => {
+            updateOwnermodal.classList.remove("show"); // Close the modal
+        });
+    });
+    
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInputowner = document.querySelector(".owner"); // Use querySelector to select the first matching element
+        const ownerTable = document.querySelector(".owner1"); // Select the table with the class "service1"
+    
+        // Real-time search functionality
+        searchInputowner.addEventListener("input", () => {
+            const query = searchInputowner.value.toLowerCase().trim(); // Get the value of the input field
+            const rows = ownerTable.querySelectorAll("tr"); // Select all rows inside the table
+    
+            rows.forEach((row) => {
+                const cells = row.querySelectorAll("td");
+                const textContent = Array.from(cells)
+                    .map((cell) => cell.textContent.toLowerCase())
+                    .join(" "); // Concatenate all cell text into one string
+    
+                // Check if the query is found in the row
+                if (textContent.includes(query)) {
+                    row.style.display = ""; // Show the row if the query matches
+                } else {
+                    row.style.display = "none"; // Hide the row if the query doesn't match
+                }
+            });
+        });
+    });
+    </script>

@@ -1,0 +1,16 @@
+{% load static %}
+<body class="body4">
+    <div class="status-container">
+        <h1 class="h1">Appointment Status</h1>
+        <form method="POST" action="{% url 'appointment' appointment.pk %}">
+            {% csrf_token %}
+            <label for="status" class="label">Choose Status:</label>
+            <select name="status" class="status">
+                <option value="confirmed" {% if appointment.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                <option value="completed" {% if appointment.status == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="canceled" {% if appointment.status == 'canceled' %}selected{% endif %}>Canceled</option>
+            </select>
+            <button type="submit" class="btn4">Update</button>
+        </form>
+    </div>
+</body>

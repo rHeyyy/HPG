@@ -1,0 +1,285 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <div id="header-section">
+        <div class="text-end">
+            <a 
+                href="javascript:void(0);" 
+                class="create-pet button-57" 
+                id="create-service-btn">
+            <span class="text">
+                <i class="fa-solid fa-paw"></i>
+                Pet
+             </span>
+            <span>
+             Add New Pet
+            </span>
+            </a>
+        </div>
+    </div>
+    <input
+        type="text"
+        id="search-input"
+        class="pet"
+        placeholder="Search for pet..."
+    />
+</div>
+<div id="dashboard-stats" class="stats-grid">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-user-tag" id="icon"></i>
+        <div>
+            <h3>{{ owners|length }}</h3>
+            <p>Total Owners</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-dog" id="icon"></i>
+        <div>
+            <h3>{{ dogs_count }}</h3>
+            <p>Total dog records</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-cat" id="icon"></i>
+        <div>
+            <h3>{{ cats_count }}</h3>
+            <p>Total cat records</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Service Management Section -->
+    <div id="users-section">
+
+        {% if pets %}
+        <!-- Services Table -->
+        <div id="services-list" class="list-section">
+            <table id="user-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Pet Name</th>
+                        <th>Species</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Owner</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-tbody" class="pet1">
+                    {% for pet in pets %}
+                    <tr>
+                        <td>
+                            {% if pet.picture %}
+                            <img
+                                src="{{ pet.picture.url }}"
+                                class="img-fluid rounded"
+                                alt="{{ pet.name }}"
+                                style="max-width: 100px; max-height: 100px;"
+                            />
+                            {% else %}
+                            <span>No image available</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ pet.name }}</td>
+                        <td>{{ pet.species }}</td>
+                        <td>{{ pet.breed }}</td>
+                        <td>{{ pet.get_age_display }}</td>
+                        <td>{{ pet.owner }}</td>
+                        <td>
+                                <a
+                                    class="action-link edit-pet"
+                                    href=""
+                                    data-pet-id="{{ pet.pk }}"
+                                >
+                                    <i class="fa-solid fa-pen" title="Edit Pet"></i>
+                                </a>
+                                |
+                                <a
+                                    class="action-link delete-pet"
+                                    href=""
+                                    data-pet-id2="{{ pet.pk }}"
+                                >
+                                    <i class="fa-solid fa-trash" title="Delete Pet"></i>
+                                </a>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">No services found. Start by adding a new service!</p>
+        {% endif %}
+    </div>
+</div>
+
+<!--UPDATE PET-->
+<div id="Edit-Pet-Modal" class="Edit-Pet-Modal">
+    <div class="Edit-Pet-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Edit-Pet-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--DELETE PET-->
+<div id="Delete-Pet-Modal" class="Delete-Pet-Modal">
+    <div class="Delete-Pet-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Delete-Pet-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--CREATE PET-->
+<div id="Create-Pet-Modal" class="Create-Pet-Modal">
+    <div class="Create-Pet-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Create-Pet-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+// create pet
+document.addEventListener("DOMContentLoaded", () => {
+    const addpetmodal = document.getElementById("Create-Pet-Modal");
+    const closeBtn = addpetmodal.querySelector(".close-btn1");
+    const addpetmodalFormContainer = document.getElementById("Create-Pet-modal-form-container");
+    const addpetLinks = document.querySelectorAll(".create-pet");
+
+    // Handle clicking on the edit link
+    addpetLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_pet/create/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    addpetmodalFormContainer.innerHTML = data;
+                    addpetmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    addpetmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        addpetmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+// Delete Pet
+document.addEventListener("DOMContentLoaded", () => {
+    const delPetmodal = document.getElementById("Delete-Pet-Modal");
+    const closeBtn = delPetmodal.querySelector(".close-btn1");
+    const delPetmodalFormContainer = document.getElementById("Delete-Pet-modal-form-container");
+    const delPetLinks = document.querySelectorAll(".delete-pet");
+
+    // Handle clicking on the edit link
+    delPetLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const PetId = link.getAttribute("data-pet-id2");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_pet/${PetId}/delete/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    delPetmodalFormContainer.innerHTML = data;
+                    delPetmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    delPetmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        delPetmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+
+// Update Pet
+document.addEventListener("DOMContentLoaded", () => {
+    const updatePetmodal = document.getElementById("Edit-Pet-Modal");
+    const closeBtn = updatePetmodal.querySelector(".close-btn1");
+    const PetmodalFormContainer = document.getElementById("Edit-Pet-modal-form-container");
+    const editPetLinks = document.querySelectorAll(".edit-pet");
+
+    // Handle clicking on the edit link
+    editPetLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const PetId = link.getAttribute("data-pet-id");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_pet/${PetId}/edit/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    PetmodalFormContainer.innerHTML = data;
+                    updatePetmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    PetmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        updatePetmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInputpet = document.querySelector(".pet"); // Use querySelector to select the first matching element
+    const petTable = document.querySelector(".pet1"); // Select the table with the class "service1"
+
+    // Real-time search functionality
+    searchInputpet.addEventListener("input", () => {
+        const query = searchInputpet.value.toLowerCase().trim(); // Get the value of the input field
+        const rows = petTable.querySelectorAll("tr"); // Select all rows inside the table
+
+        rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const textContent = Array.from(cells)
+                .map((cell) => cell.textContent.toLowerCase())
+                .join(" "); // Concatenate all cell text into one string
+
+            // Check if the query is found in the row
+            if (textContent.includes(query)) {
+                row.style.display = ""; // Show the row if the query matches
+            } else {
+                row.style.display = "none"; // Hide the row if the query doesn't match
+            }
+        });
+    });
+});
+</script>

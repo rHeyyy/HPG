@@ -1,0 +1,30 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_deleteOwner' owner.pk %}" class="service-form-3">
+        <div class="form-layout-3">
+            
+
+            <!-- Form Fields -->
+            <div class="form-fields-3">
+                <h1 class="cool-heading">{{ owner.name }}</h1>
+
+                {% csrf_token %}
+                <div class="form-group-3">
+                    <label for="id_owner_3" class="form-label-3">Owner</label>
+                    <input type="text" id="id_owner_3" name="owner" class="form-control-3" placeholder="Owner" value="{{ owner.user }}" required>
+               
+                </div>
+                <div class="form-group-3">
+                    <label for="id_email_3" class="form-label-3">E-Mail</label>
+                    <input type="text" id="id_email_3" name="email" class="form-control-3" placeholder="E-Mail" value="{{ owner.email }}" required>
+                </div>
+                <div class="form-group-3">
+                    <label for="id_phone_3" class="form-label-3">Phone Number</label>
+                    <input type="text" id="id_phone_3" name="phone" class="form-control-3" placeholder="Phone" value="{{ owner.phone }}" required>
+                </div> 
+                <button type="submit" class="btn btn-primary-3">Delete Owner</button>
+            </div>
+        </div>
+    </form>
+</div>

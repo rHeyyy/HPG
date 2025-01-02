@@ -1,0 +1,26 @@
+{% load static %}
+<h2>Reschedule Appointment</h2>
+<p><strong>Pet:</strong> {{ appointment.pet.name }}</p>
+<p><strong>Current Date:</strong> {{ appointment.date }}</p>
+<p><strong>Current Time:</strong> {{ appointment.time }}</p>
+
+{% if error_message %}
+<div id="error-message-container" style="color: red; margin-bottom: 10px;">
+    {{ error_message }}
+</div>
+{% endif %}
+
+<form id="reschedule-form" method="POST" action="{% url 'reschedule_appointment' appointment.pk %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_date">New Date</label>
+        <input type="date" id="id_date" name="date" value="{{ appointment.date|date:'Y-m-d' }}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="id_time">New Time</label>
+        <input type="time" id="id_time" name="time" value="{{ appointment.time|time:'H:i' }}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Reschedule</button>
+</form>
+
+<a href="{% url 'admin_main' %}" class="btn btn-secondary">Cancel</a>

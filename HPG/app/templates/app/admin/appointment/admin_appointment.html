@@ -1,0 +1,353 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <div id="header-section">
+        <div class="text-end">
+            <a 
+                href="javascript:void(0);" 
+                class="create-appointment button-57" 
+                id="create-service-btn">
+            <span class="text">
+                <i class="fa-solid fa-paw"></i>
+                Appoinment
+             </span>
+            <span>
+             Add New Pet
+            </span>
+            </a>
+        </div>
+    </div>
+    <input
+        type="text"
+        id="search-input"
+        class="appoint"
+        placeholder="Search for pet..."
+    />
+</div>
+<div id="dashboard-stats" class="stats-grid">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-user-tag" id="icon"></i>
+        <div>
+            <h3>{{ owners|length }}</h3>
+            <p>Total Owners</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-dog" id="icon"></i>
+        <div>
+            <h3>{{ dogs_count }}</h3>
+            <p>Total dog records</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-cat" id="icon"></i>
+        <div>
+            <h3>{{ cats_count }}</h3>
+            <p>Total cat records</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Service Management Section -->
+    <div id="users-section">
+
+        {% if appointments %}
+        <!-- Services Table -->
+        <div id="services-list" class="list-section">
+            <table id="user-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Pet Name</th>
+                        <th>Service</th>
+                        <th>Groomer</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Time Created</th>
+                        <th>Notes</th>
+                        <th>Confirmation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-tbody" class="appoint1">
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.pet }}</td>
+                        <td>{{ appointment.service }}</td>
+                        <td>{{ appointment.groomer }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.created_at }}</td>
+                        <td>{{ appointment.notes }}</td>
+                        <td><button class="btns">
+                            <span class="box edit-appointment" href=""
+                            data-appointment-id="{{ appointment.pk }}">
+                                {{ appointment.status }}
+                            </span>
+                        </button></td>
+                        <td>
+                                <a
+                                    class="action-link reschedule-appointment"
+                                    href=""
+                                    data-Reschedule-appointment-id="{{ appointment.pk }}"
+                                >
+                                    <i class="fa-solid fa-pen" title="Reschedule Appointment"></i>
+                                </a>
+                                |
+                                <a
+                                    class="action-link delete-appointment"
+                                    href=""
+                                    data-appointment-id2="{{ appointment.pk }}"
+                                >
+                                    <i class="fa-solid fa-trash" title="Delete Appointment"></i>
+                                </a>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">No Appointment found. Start by adding a new appointment!</p>
+        {% endif %}
+    </div>
+</div>
+
+<!--CREATE APPOINTMENT-->
+<div id="Create-Appointment-Modal" class="Create-Appointment-Modal">
+    <div class="Create-Appointment-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Create-Appointment-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--UPDATE Appointment Status-->
+<div id="Edit-Appointment-Modal" class="Edit-Appointment-Modal">
+    <div class="Edit-Appointment-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Edit-Appointment-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--RESCHEDULE Appointment -->
+<div id="Reschedule-Appointment-Modal" class="Reschedule-Appointment-Modal">
+    <div class="Reschedule-Appointment-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Reschedule-Appointment-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--DELETE Appointment-->
+<div id="Delete-Appointment-Modal" class="Delete-Appointment-Modal">
+    <div class="Delete-Appointment-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Delete-Appointment-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+// Reschedule Appointment
+document.addEventListener("DOMContentLoaded", () => {
+    const RescheduleAppointmentmodal = document.getElementById("Reschedule-Appointment-Modal");
+    const closeBtn = RescheduleAppointmentmodal.querySelector(".close-btn1");
+    const RescheduleAppointmentmodalFormContainer = document.getElementById("Reschedule-Appointment-modal-form-container");
+    const RescheduleAppointmentLinks = document.querySelectorAll(".reschedule-appointment");
+
+    // Handle clicking on the edit link
+    RescheduleAppointmentLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const RescheduleAppointmentId = link.getAttribute("data-Reschedule-appointment-id");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_appointment/${RescheduleAppointmentId}/reschedule/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    RescheduleAppointmentmodalFormContainer.innerHTML = data;
+                    RescheduleAppointmentmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    RescheduleAppointmentmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+
+    // Handle form submission dynamically
+    RescheduleAppointmentmodalFormContainer.addEventListener("submit", (e) => {
+        if (e.target.matches("#reschedule-form")) {
+            e.preventDefault(); // Prevent default form submission
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    // Replace the modal content with the updated form (including errors if any)
+                    RescheduleAppointmentmodalFormContainer.innerHTML = data;
+
+                    // Check if the response contains success (redirect is not possible with fetch)
+                    if (!data.includes("error-message-container")) {
+                        // Assume no errors: reload the page to reflect changes
+                        location.reload();
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        RescheduleAppointmentmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+// Update Pet
+document.addEventListener("DOMContentLoaded", () => {
+    const updateAppointmentmodal = document.getElementById("Edit-Appointment-Modal");
+    const closeBtn = updateAppointmentmodal.querySelector(".close-btn1");
+    const AppointmentmodalFormContainer = document.getElementById("Edit-Appointment-modal-form-container");
+    const editAppointmentLinks = document.querySelectorAll(".edit-appointment");
+
+    // Handle clicking on the edit link
+    editAppointmentLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const AppointmentId = link.getAttribute("data-appointment-id");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_appointment/${AppointmentId}/review/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    AppointmentmodalFormContainer.innerHTML = data;
+                    updateAppointmentmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    AppointmentmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        updateAppointmentmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+// create Appointment
+document.addEventListener("DOMContentLoaded", () => {
+    const addAppointmentmodal = document.getElementById("Create-Appointment-Modal");
+    const closeBtn = addAppointmentmodal.querySelector(".close-btn1");
+    const addAppointmentmodalFormContainer = document.getElementById("Create-Appointment-modal-form-container");
+    const addAppointmentLinks = document.querySelectorAll(".create-appointment");
+
+    // Handle clicking on the edit link
+    addAppointmentLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_appointment/create/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    addAppointmentmodalFormContainer.innerHTML = data;
+                    addAppointmentmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    addAppointmentmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        addAppointmentmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+// Delete Pet
+document.addEventListener("DOMContentLoaded", () => {
+    const delAppointmentmodal = document.getElementById("Delete-Appointment-Modal");
+    const closeBtn = delAppointmentmodal.querySelector(".close-btn1");
+    const delAppointmentmodalFormContainer = document.getElementById("Delete-Appointment-modal-form-container");
+    const delAppointmentLinks = document.querySelectorAll(".delete-appointment");
+
+    // Handle clicking on the edit link
+    delAppointmentLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const AppointmentId = link.getAttribute("data-appointment-id2");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_appointment/${AppointmentId}/delete/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    delAppointmentmodalFormContainer.innerHTML = data;
+                    delAppointmentmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    delAppointmentmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        delAppointmentmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchInputappoint = document.querySelector(".appoint"); // Use querySelector to select the first matching element
+    const appointTable = document.querySelector(".appoint1"); // Select the table with the class "service1"
+
+    // Real-time search functionality
+    searchInputappoint.addEventListener("input", () => {
+        const query = searchInputappoint.value.toLowerCase().trim(); // Get the value of the input field
+        const rows = appointTable.querySelectorAll("tr"); // Select all rows inside the table
+
+        rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const textContent = Array.from(cells)
+                .map((cell) => cell.textContent.toLowerCase())
+                .join(" "); // Concatenate all cell text into one string
+
+            // Check if the query is found in the row
+            if (textContent.includes(query)) {
+                row.style.display = ""; // Show the row if the query matches
+            } else {
+                row.style.display = "none"; // Hide the row if the query doesn't match
+            }
+        });
+    });
+});
+</script>

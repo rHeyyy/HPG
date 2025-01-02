@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Paw's Grooming</title>
+     <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/service.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+
+    <!--=============== HEADER ===============-->
+         <header class="header" id="header">
+            <div class="header__container">
+               <a href="#" class="header__logo">
+                  <img src="{% static 'images/logo/2.png' %}" alt="Logo">
+              </a>
+               
+   
+               <button class="header__toggle" id="header-toggle">
+                  <i class="ri-menu-line"></i>
+               </button>
+            </div>
+         </header>
+   
+         <!--=============== SIDEBAR ===============-->
+         <nav class="sidebar" id="sidebar">
+            <div class="sidebar__container">
+               <div class="sidebar__user">
+                  <div class="sidebar__img">
+                     {% if user.profile_picture %}
+                     <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-img">
+                 {% else %}
+                     <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture" class="profile-img">
+                 {% endif %}
+                  </div>
+   
+                  <div class="sidebar__info">
+                     <h3>{{ user.username }}</h3>
+                     <span>{{user.email}}</span>
+                  </div>
+               </div>
+   
+               <div class="sidebar__content">
+                  <div>
+                     <h3 class="sidebar__title">MANAGE</h3>
+   
+                     <div class="sidebar__list">
+                        <a href="#admin-dashboard" class="sidebar__link active-link">
+                           <i class="ri-pie-chart-2-fill" title="Admin Dashboard"></i>
+                           <span>Dashboard</span>
+                        </a>
+   
+                        <a href="#admin-service" class="sidebar__link">
+                            <i class="ri-wallet-3-fill" title="Services"></i>
+                            <span>Service</span>
+                        </a>
+   
+                        <div class="sidebar__item">
+                           <!-- Dropdown Toggle for Pet Informations -->
+                           <a href="#admin-pet" class="sidebar__link sidebar__dropdown-toggle">
+                              <i class="fa-solid fa-paw" title="Pet Informations"></i>
+                               <span>Pet Informations <i class="ri-arrow-down-s-line dropdown-arrow"></i></span>
+                           </a>
+                       
+                           <!-- Dropdown Menu -->
+                           <div class="sidebar__dropdown-menu">
+                               <a href="#admin-pet-owner" class="sidebar__link">
+                                   <i class="ri-user-fill" title="Pet Owners"></i>
+                                   <span>Owners</span>
+                               </a>
+                           </div>
+                       </div>
+                       
+                        <a href="#admin-groomer" class="sidebar__link">
+                           <i class="fa-solid fa-scissors" title="Groomers"></i>
+                           <span>Pet Groomers</span>
+                        </a>
+   
+                        <a href="#" class="sidebar__link">
+                           <i class="ri-bar-chart-box-fill"></i>
+                           <span>Statistics</span>
+                        </a>
+                     </div>
+                  </div>
+   
+                  <div>
+                     <h3 class="sidebar__title">User Interface</h3>
+   
+                     <div class="sidebar__list">
+                        <a href="#admin-appointment" class="sidebar__link">
+                           <i class="ri-settings-3-fill" title="Appoinment"></i>
+                           <span>Appointment</span>
+                        </a>
+   
+                        <a href="#" class="sidebar__link">
+                           <i class="ri-mail-unread-fill"></i>
+                           <span>About</span>
+                        </a>
+   
+                        <a href="#" class="sidebar__link">
+                           <i class="ri-notification-2-fill"></i>
+                           <span>Service</span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+   
+               <div class="sidebar__actions">
+                  <button>
+                     <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
+                        <span>Theme</span>
+                     </i>
+                  </button>
+   
+                  <button class="sidebar__link">
+                     <i class="ri-logout-box-r-fill"></i>
+                     <span><a id="logout-link" href="{% url 'logout' %}">Logout</a></span>
+                  </button>
+               </div>
+            </div>
+         </nav>
+   
+         <!--=============== MAIN ===============-->
+         <main class="main container" id="main">
+           <div id="admin-dashboard"> 
+            {% include 'app/admin/admin_dashboard.html' %}
+            </div>
+            
+            <div id="admin-service">
+               {% include 'app/admin/service/admin_service.html' %} 
+            </div>
+           
+            <div id="admin-pet">
+               {% include 'app/admin/pet/admin_pet.html' %} 
+            </div>
+
+            <div id="admin-pet-owner">
+               {% include 'app/admin/owner/admin_owner.html' %} 
+            </div>
+
+            <div id="admin-groomer">
+               {% include 'app/admin/groomer/admin_groomer.html' %} 
+            </div>
+
+            <div id="admin-appointment">
+               {% include 'app/admin/appointment/admin_appointment.html' %} 
+            </div>
+
+         </main>
+   
+
+    <script src="{% static 'js/side_navbar.js' %}"></script>
+    <script src="{% static 'js/update-profile.js' %}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,1898 @@
+/*=============== THIS IS FOR THE SIDEBAR ===============*/
+#admin-dashboard,
+#admin-service,
+#admin-pet,
+#admin-pet-owner,
+#admin-appointment {
+    display: none;
+}
+
+/*=============== THIS IS FOR DESIGN OF THE DASHBOARD AND SERVICE ===============*/
+/*=============== THIS IS FOR DESIGN OF THE DASHBOARD AND SERVICE ===============*/
+/* Responsive Dashboard Container */
+#dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--body-color); /* Bright white for a clean look */
+    color: var(--text-color); /* Neutral dark text */
+    border: 1px solid var(--first-color); /* Accent color */
+    border-radius: 16px; /* Softer corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1200px) {
+    #dashboard-container {
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    #dashboard-stats {
+        gap: 15px; /* Adjust gap between grid items */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #dashboard-container {
+        padding: 15px; /* Further reduce padding for very small screens */
+    }
+
+    #dashboard-stats {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+}
+
+/* Adjust Font Sizes for Smaller Screens */
+@media screen and (max-width: 480px) {
+    #dashboard-container {
+        padding: 10px;
+    }
+
+    .stat-card h3 {
+        font-size: 1.5rem; /* Reduce title size */
+    }
+
+    .stat-card p {
+        font-size: 0.9rem; /* Adjust paragraph size */
+    }
+
+    #search-section h1 {
+        font-size: 1.4rem; /* Smaller font for section title */
+    }
+
+    #search-input {
+        font-size: 0.9rem; /* Adjust input font size */
+        padding: 10px;
+    }
+}
+/*=============== Design for search input For User ===============*/
+#search-section {
+    display: flex;
+    padding: 20px;
+    border-radius: 8px;
+    align-items: center; /* Align the h1 and input vertically */
+    justify-content: space-between; /* Space out the h1 and input */
+    background-color: var(--card-bg);
+    gap: 15px; /* Add spacing between the h1 and input */
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+    box-shadow: 0 2px 24px var(--shadow-color);
+}
+#search-input::placeholder {
+    color: var(--text-color1); /* Set the placeholder color to red */
+    opacity: 1; /* Ensures the color is fully visible */
+}
+
+#search-section h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--text-color); /* Neutral dark color */
+}
+
+#search-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-color);
+    padding: 12px 16px;
+    width: 100%;
+    max-width: 300px; /* Limit the input size */
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Add focus effects for the search input */
+#search-input:focus {
+    outline: none;
+    border-color: var(--text-color1);
+    box-shadow: 0 2px 24px var(--shadow-color);
+}
+
+/*=============== Responsive design for search input ===============*/
+@media screen and (max-width: 768px) {
+    #search-section {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        align-items: stretch; /* Stretch the items to full width */
+    }
+
+    #search-section h1 {
+        margin-bottom: 10px; /* Add spacing below the h1 */
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+        text-align: left; /* Align text to the left */
+    }
+
+    .text-end {
+        width: 100%; /* Make button take full width */
+        max-width: none; /* Remove max-width constraint */
+        margin-bottom: 10px; /* Add spacing between the button and input */
+    }
+
+    #search-input {
+        width: 100%; /* Full width input on smaller screens */
+        max-width: none; /* Remove max-width constraint */
+    }
+}
+ 
+.stats-grid .stat-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.stat-card {
+    background-color: var(--first-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 24px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-card #icon {
+    font-size: 2rem;
+    color: var(--text-color1);
+}
+
+.stat-card h3 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.styled-table img {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 100px;  
+    max-height: 100px; 
+    object-fit: cover; 
+}
+
+.stat-card p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+@media screen and (max-width: 1024px) {
+    #dashboard-stats {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on medium screens */
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #dashboard-stats {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        gap: 10px;
+    }
+}
+
+/* Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: var(--bg-color); /* Dark background for the table */
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--first-color); /* Accent border color */
+    box-shadow: 0 4px 12px var(--shadow-color); /* Soft shadow for depth */
+    transition: box-shadow 0.3s ease; /* Smooth shadow transition */
+}
+
+/* Table Header */
+.styled-table th {
+    background-color: var(--first-color); /* Accent header background */
+    color: var(--title-color); /* Light text color for the header */
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    padding: 10px 10px;
+    text-align: center; /* Center align headers */
+    font-size: .9rem;
+    border-bottom: 2px solid var(--first-color); /* Stronger separator */
+}
+
+/* Table Cells */
+.styled-table td {
+    padding: 16px 18px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-color); /* Use the light text color */
+    transition: background-color 0.2s, color 0.2s; /* Smooth transition for hover effects */
+}
+
+/* Alternate Row Background Colors */
+.styled-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter dark rows */
+}
+
+/* Table Row Hover Effect */
+.styled-table tr:hover {
+    background-color: var(--card-bg); /* Darker background on hover */
+    color: var(--text-color1); /* Highlight text color */
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 4px 12px var(--shadow-color); /* Enhanced shadow on hover */
+}
+
+/* Table Cells on Hover */
+.styled-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.15); /* Lighten background on hover */
+}
+
+/* Responsive Table - List View on Small Screens */
+@media screen and (max-width: 768px) {
+    .styled-table, .styled-table thead, .styled-table tbody, .styled-table th, .styled-table td, .styled-table tr {
+        display: block; /* Convert table to block elements */
+        width: 100%; /* Full width for table items */
+    }
+
+    .styled-table thead {
+        display: none; /* Hide table headers */
+    }
+
+    .styled-table tr {
+        margin-bottom: 15px; /* Space between rows (now stacked) */
+        border: 1px solid #edf2f7;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .styled-table td {
+        display: flex; /* Flex layout for each cell */
+        justify-content: space-between; /* Align label and value */
+        padding: 10px;
+        text-align: left;
+        border-bottom: none; /* Remove unnecessary borders */
+    }
+
+    .styled-table td::before {
+        content: attr(data-label); /* Add labels for each cell dynamically */
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #2d3748;
+        margin-right: 10px; /* Space between label and value */
+    }
+
+    .styled-table td:last-child {
+        border-bottom: none; /* Remove bottom border for the last cell */
+    }
+}
+
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+    #dashboard-container .styled-table {
+        border: none; /* Remove border on smaller screens */
+        box-shadow: none; /* Remove shadow on small screens */
+    }
+
+    #dashboard-container .styled-table th, 
+    #dashboard-container .styled-table td {
+        padding: 12px 14px; /* Adjust padding for better readability */
+    }
+
+    #dashboard-container .styled-table th {
+        font-size: 1rem; /* Slightly smaller header font */
+    }
+
+    #dashboard-container .styled-table td {
+        font-size: 0.95rem; /* Smaller text for smaller screens */
+    }
+}
+
+
+/*=============== THIS IS FOR DESIGN ACTION LINKS ===============*/
+.action-link, .delete-link {
+    display: inline-block;
+    padding: 10px 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Action Link */
+.action-link {
+    color: var(--text-color1); /* Accent color for action link text */
+    background-color: var(--card-bg); /* Background color for action link */
+    border: 1px solid var(--first-color); /* Accent border */
+}
+
+.action-link:hover {
+    background-color: var(--first-color); /* Hover effect: background turns to accent color */
+    color: var(--title-color); /* Text color changes on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 12px var(--shadow-color); /* Shadow to indicate interactivity */
+}
+
+/* Delete Link */
+.delete-link {
+    color: var(--text-color1); /* Red color for delete text */
+    background-color: var(--delete-bg);/* Light red background for delete link */
+    border: 1px solid var(--text-color1); /* Border same as text color */
+}
+
+.delete-link:hover {
+    background-color: var(--delete-bg); /* Darker red for hover */
+    color: 1px solid white; /* Text turns white on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 4px 12px var(--shadow-color); /* Enhance shadow effect */
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+
+/* Action Link Flex Container (for better alignment) */
+.action-link-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center; /* Centers the action links */
+    align-items: center;
+}
+
+/* Responsive Design for Action Links */
+@media screen and (max-width: 768px) {
+    .action-link, .delete-link {
+        font-size: 0.85rem; /* Slightly smaller text for smaller screens */
+        padding: 8px 12px; /* Adjust padding for smaller screens */
+    }
+
+    .action-link-container {
+        flex-direction: column; /* Stack the action links vertically on small screens */
+        gap: 8px; /* Less gap between stacked links */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .action-link, .delete-link {
+        font-size: 0.8rem; /* Further reduce text size for very small screens */
+        padding: 6px 10px; /* Reduce padding for very small screens */
+    }
+}
+
+
+
+
+
+
+/*=============== Delete Modal For User ===============*/
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+.delete-modal.show {
+    display: flex; /* Show modal when the "show" class is added */
+    opacity: 1; /* Make modal visible */
+}
+
+.delete-modal-content {
+    background: var(--body-color1);
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+.delete-modal.show .delete-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+/*=============== Update Modal For User ===============*/
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1; /* Fade in when the modal is shown */
+}
+
+.modal-content {
+    background: var(--body-color1);
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+.modal.show .modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+/*=============== Close Button Modal For User ===============*/
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    cursor: pointer;
+    z-index: 1050; /* Ensuring the button is above modal content */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-color1); /* Vibrant red for hover state */
+    transform: scale(1.2); /* Slightly enlarges the button */
+}
+
+
+
+/*=============== Design for Input Image For User ===============*/
+.file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-label {
+    margin-bottom: 15px;
+    display: block;
+    background-color: var(--text-color1);
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+
+/*=============== Designing the body For User ===============*/
+#body {
+    font-family: "Nunito Sans", system-ui;
+    background-color: var(--body-color);
+    margin: 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--title-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-form {
+    background: var(--bg-color);
+    border: 2px solid var(--first-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 425px;
+    box-shadow: 0 4px 10px var(--shadow-color1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.profile-form label.form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 4px 10px var(--text-color);
+    margin: 0 auto 15px auto;
+    display: block;
+    object-fit: cover;
+}
+
+.file-input {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(  --text-color1);
+    border-radius: 5px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.form-control::placeholder {
+    
+    color: var(--text-color1);
+}
+
+.form-control:focus {
+    border-color: var(--text-color1);
+    outline: none;
+    box-shadow: 0 0 5px var(--shadow-color1);
+}
+
+.profile-form .btn-primary {
+    display: block;
+    margin: 20px auto; /* Center horizontally */
+    width: 80%; /* Button width relative to form */
+    padding: 10px 15px; /* Padding for the button */
+    font-size: 1.2rem; /* Slightly larger font for emphasis */
+    background-color: var(--card-bg);
+    border: 1px solid var(--first-color);
+    color: var(--text-color1);
+    border-radius: 5px;
+    text-align: center; /* Ensure text is centered */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.profile-form .btn-primary:hover {
+    background-color: var(--first-color);
+    transform: translateY(-2px);
+    color: var(--title-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+
+/* Hide help text globally within the modal */
+.modal .helptext {
+    display: none;
+}
+
+
+
+
+
+/*=============== Designing the body For SERVICE ===============*/
+/*=============== Designing the body For SERVICE ===============*/
+/*=============== Designing the body For SERVICE ===============*/
+/* Ensure that the description field has appropriate styling for a textarea */
+.description-input {
+    width: 100%;  /* Take full width of the container */
+    max-width: 600px; /* Set a max width for better control */
+    max-height: 350px;
+    min-height: 190px;
+    min-width: 300px; /* Prevent it from shrinking too much */
+    padding: 10px;
+    text-align: justify;
+    font-size: 1rem;
+    border: 1px solid var(--text-color1);
+    border-radius: 5px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    resize: vertical; /* Allows resizing the height of the textarea */
+}
+
+/* Focus styling */
+.description-input:focus {
+    border-color: var(--text-color1);
+    outline: none;
+    box-shadow: 0 0 5px var(--shadow-color1);
+}
+
+.description-input::-webkit-scrollbar {
+    width: 0px; /* Hide vertical scroll bar */
+    height: 0px; /* Hide horizontal scroll bar */
+}
+
+
+/* This for Input image */
+.file-input-wrapper-3 {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+}
+
+.file-input-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-label-3 {
+    margin-bottom: 15px;
+    display: block;
+    background-color: var(--text-color1);
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* General Styling for #body-3 */
+#body-3 {
+    font-family: "Nunito Sans", system-ui;
+    background-color: var(--body-color);
+    margin: 0;
+    width: 700px; /* Set the width of the body */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--title-color);
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    position: relative; /* Allow absolute positioning of close button */
+}
+
+
+.service-form-3 {
+    background: var(--bg-color);
+    border: 2px solid var(--first-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 425px;
+    box-shadow: 0 4px 10px var(--shadow-color1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    display: flex;
+    justify-content: center;
+}
+
+.service-form-3 label.form-label-3 {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Make image larger and responsive */
+.service-picture-3 {
+    width: 200px; /* Increased size */
+    height: 200px; /* Increased size */
+    border-radius: 50% 10% 50% 10%;
+    border: 3px solid var(--shadow-color1);
+    box-shadow: 0 4px 15px var(--shadow-color1);
+    margin: 0 auto 15px auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Smooth scaling on hover */
+}
+
+/* Add hover effect for the image */
+.service-picture-3:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Responsive Image Design */
+@media (max-width: 768px) {
+    .service-picture-3 {
+        width: 120px; /* Resize for smaller screens */
+        height: 120px;
+    }
+}
+
+.file-input-3 {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+
+.form-group-3 {
+    margin-bottom: 15px;
+}
+
+.form-control-3 {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--text-color1);
+    border-radius: 5px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.form-control-3::placeholder {
+    color: var(--text-color1);
+}
+
+.form-control-3:focus {
+    border-color: var(--text-color1);
+    outline: none;
+    box-shadow: 0 0 5px var(--shadow-color1);
+}
+
+.service-form-3 .btn-primary-3 {
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--first-color);
+    color: var(--text-color1);
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.service-form-3 .btn-primary-3:hover {
+    background-color: var(--first-color);
+    transform: translateY(-2px);
+    color: var(--title-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Form Layout */
+.service-form-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: var(--bg-color);
+    border: 2px solid var(--first-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--shadow-color1);
+}
+
+/* Flexbox Layout for Image and Form Fields */
+.form-layout-3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px; /* Space between image and form */
+}
+
+/* Centered Image Section */
+.form-image-3 {
+    flex: 1;
+    text-align: center;
+}
+
+.file-input-wrapper-3 {
+    width: 100%;
+    text-align: center;
+}
+
+/* Form Fields */
+.form-fields-3 {
+    flex: 2;
+}
+
+
+.btn-primary-3 {
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--first-color);
+    color: var(--text-color1);
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.btn-primary-3:hover {
+    background-color: var(--first-color);
+    transform: translateY(-2px);
+    color: var(--title-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+/* Floating Label Group */
+.floating-label-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Input and Textarea Styling */
+.form-control-3 {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--text-color1);
+    border-radius: 5px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    outline: none;
+    position: relative;
+    z-index: 1;
+    resize: none; /* Ensures consistent textarea appearance */
+}
+
+.form-control-3:focus {
+    border-color: var(--text-color1);
+    box-shadow: 0 0 5px var(--shadow-color1);
+}
+
+/* Placeholder hidden initially */
+.form-control-3::placeholder {
+    color: transparent; /* Hides the placeholder text */
+}
+
+/* Floating Label Styling */
+.floating-label {
+    position: absolute;
+    top: 10px; /* Adjust for textarea */
+    left: 10px;
+    font-size: 1rem;
+    color: var(--text-color1);
+    pointer-events: none;
+    transition: 0.2s ease all;
+    z-index: 2;
+    background: var(--bg-color);
+    padding: 0 5px;
+}
+
+/* Move label to the top border on focus or input value */
+.form-control-3:focus + .floating-label,
+.form-control-3:not(:placeholder-shown) + .floating-label {
+    top: -10px; /* Adjusted for floating effect */
+    font-size: 0.85rem;
+    color: var(--first-color);
+}
+
+/* Specific Styling for Textarea */
+textarea.form-control-3 {
+    min-height: 120px; /* Ensures enough space for text */
+    line-height: 1.5; /* Adjust text spacing */
+}
+
+
+
+/*=============== Design the button for create new service For SERVICE ===============*/
+/*=============== Design the button for create new service For SERVICE ===============*/
+.button-57 {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--text-color);
+    color: #1a1a1a;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 10px 20px;
+    width: 150px;
+    text-decoration: none;
+    cursor: pointer;
+    background: var(--input-bg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    transition: all 300ms ease-in-out;
+  }
+  
+  .text{
+    color: var(--text-color1);
+    font-size: 20px;
+  }
+
+  .button-57:hover {
+    background-color: var(--text-color);
+    color: var(--text-color1);
+    border: 1px solid var(--text-color);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    
+  }
+  
+  .button-57 span:first-child {
+    position: relative;
+    transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 10;
+    
+  }
+  
+  .button-57 span:last-child {
+    color: var(--title-color);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 100;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateY(225%) translateX(-50%);
+    height: 14px;
+    line-height: 13px;
+    font-size: 15px;
+  }
+  
+  .button-57:after {
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:var(--first-color);
+    transform-origin: bottom center;
+    transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+    transform: skewY(9.3deg) scaleY(0);
+    z-index: 50;
+  }
+  
+  .button-57:hover:after {
+    transform-origin: bottom center;
+    transform: skewY(9.3deg) scaleY(2);
+  }
+  
+  .button-57:hover span:last-child {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 1;
+    transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+  }
+  
+
+/*=============== ADD MODAL FOR SERVICE ===============*/
+.create-Service-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.create-Service-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.create-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.create-Service-Modal.show .create-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== UPDATE MODAL FOR SERVICE ===============*/
+.Edit-Service-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Edit-Service-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Edit-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Edit-Service-Modal.show .Edit-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+
+/*=============== DELETE MODAL FOR SERVICE ===============*/
+.delete-Service-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.delete-Service-Modal.show {
+    display: flex;
+    opacity: 1; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.delete-modal-content1 {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.delete-Service-Modal.show .delete-modal-content1 {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== UPDATE MODAL FOR PET ===============*/
+.Edit-Pet-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Edit-Pet-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Edit-Pet-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Edit-Pet-Modal.show .Edit-Pet-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== DELETE MODAL FOR PET ===============*/
+.Delete-Pet-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Delete-Pet-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Delete-Pet-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Delete-Pet-Modal.show .Delete-Pet-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== CREATE MODAL FOR PET ===============*/
+.Create-Pet-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Create-Pet-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Create-Pet-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Create-Pet-Modal.show .Create-Pet-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== UPDATE MODAL FOR Owner ===============*/
+.Edit-Owner-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Edit-Owner-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Edit-Owner-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Edit-Owner-Modal.show .Edit-Owner-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== DELETE MODAL FOR Owner ===============*/
+.Delete-Owner-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Delete-Owner-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Delete-Owner-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Delete-Owner-Modal.show .Delete-Owner-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== CREATE MODAL FOR Owner ===============*/
+.Create-Owner-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Create-Owner-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Create-Owner-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Create-Owner-Modal.show .Create-Owner-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== CREATE MODAL FOR GROOMER ===============*/
+.Create-Groomer-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Create-Groomer-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Create-Groomer-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Create-Groomer-Modal.show .Create-Groomer-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== UPDATE MODAL FOR GROOMER ===============*/
+.Edit-Groomer-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Edit-Groomer-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Edit-Groomer-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Edit-Groomer-Modal.show .Edit-Groomer-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== DELETE MODAL FOR GROOMER ===============*/
+.Delete-Groomer-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Delete-Groomer-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Delete-Groomer-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Delete-Groomer-Modal.show .Delete-Groomer-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== CREATE MODAL FOR APPOINTMENT ===============*/
+.Create-Appointment-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Create-Appointment-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Create-Appointment-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Create-Appointment-Modal.show .Create-Appointment-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== RESCHEDULE MODAL FOR APPOINTMENT ===============*/
+.Reschedule-Appointment-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Modal overlay */
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1050; /* Ensure it appears above other UI elements */
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Reschedule-Appointment-Modal.show {
+    display: flex;
+    opacity: 1; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Reschedule-Appointment-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust to your desired width */
+    max-height: 90vh; /* Prevent content from exceeding viewport height */
+    overflow-y: auto; /* Scrollable if content exceeds height */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Reschedule-Appointment-Modal.show .Reschedule-Appointment-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+
+/*=============== UPDATE MODAL FOR APPOINTMENT ===============*/
+.Edit-Appointment-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Edit-Appointment-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Edit-Appointment-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Edit-Appointment-Modal.show .Edit-Appointment-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+/*=============== DELETE MODAL FOR APPOINTMENT ===============*/
+.Delete-Appointment-Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease-in-out; /* Fade-in effect for modal background */
+}
+
+/* Show modal when triggered */
+.Delete-Appointment-Modal.show {
+    display: flex;
+    opacity: 2; /* Fade in when the modal is shown */
+}
+
+/* Modal Content Styling */
+.Delete-Appointment-modal-content {
+    background: var(--body-color1); /* Modal content background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 742px; /* Adjust this to match the width of your other content */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transform: scale(0.8); /* Initially scaled down */
+    opacity: 0; /* Initially invisible */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth scaling and fading */
+}
+
+/* Show modal content with transition */
+.Delete-Appointment-Modal.show .Delete-Appointment-modal-content {
+    transform: scale(1); /* Scale to normal size */
+    opacity: 1; /* Fade in */
+}
+
+/*=============== STATUS DROPDOWN DESIGN UPDATED TO MATCH MODAL ===============*/
+
+
+.status-container {
+    background: var(--bg-color); /* Matches modal content background */
+    border: 2px solid var(--text-color1); /* Consistent with modal border style */
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    text-align: center;
+}
+
+.h1 {
+    font-size: 20px;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.status {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid var(--text-color);
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: var(--body-color1); /* Matches modal */
+    color: var(--text-color);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.status:focus {
+    outline: none;
+    border-color: var(--text-color1); /* Matches modal focus effect */
+    box-shadow: 0 0 4px rgba(0, 51, 153, 0.3); /* Matches hover effects */
+    color: var(--text-color1);
+}
+ 
+.btn4 {
+    display: block;
+    margin: 0 auto; /* Centers the button */
+    width: 100%;
+    max-width: 200px; /* Restricts button width */
+    padding: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--text-color1);
+    color: var(--text-color1);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn4:hover {
+    background-color: var(--first-color); /* Darker hover color */
+    transform: scale(1.05);
+    color: var(--text-color);
+}
+
+.btn4:active {
+    background-color: var(--text-color1); /* Slightly darker for active */
+    transform: scale(1);
+}
+
+/*=============== BUTTON FOR STATUS ===============*/
+#user-tbody .box {
+    width: 120px;
+    height: auto;
+    float: left;
+    transition: .5s linear;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    margin: 0 5px;
+    background: transparent;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: small;
+  }
+  
+  #user-tbody .box:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid transparent;
+    box-sizing: border-box;
+    transform: translateX(100%);
+  }
+  
+  #user-tbody .box:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-top: 4px solid transparent;
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    transform: translateX(-100%);
+  }
+  
+  #user-tbody .box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  #user-tbody .box:hover:before {
+    border-color: var(--text-color1);
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .3s;
+  }
+  
+  #user-tbody .box:hover:after {
+    border-color: var(--text-color1);
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .5s;
+  }
+  
+  .btns {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: transparent;
+  }
+
+/*=============== CLOSE BUTTON MODAL FOR SERVICE ===============*/
+.close-btn1 {
+    position: absolute;
+    top: 10px;  /* Slightly adjust the top for better visual alignment */
+    right: 10px; /* Adjust the position of the button */
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    cursor: pointer;
+    z-index: 1050; /* Ensuring the button is above modal content */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn1:hover {
+    color: var(--text-color1); /* Vibrant red for hover state */
+    transform: scale(1.2); /* Slightly enlarges the button */
+}
+
+
+.cool-heading {
+    text-align: center; /* Centers the text */
+    font-family: 'Poppins', sans-serif; /* Modern and cool Google Font */
+    font-size: 1.5rem; /* Makes the font larger */
+    color: var(--text-color1); /* A nice green color */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+    margin-bottom: 20px; /* Adds spacing below */
+}
+
+

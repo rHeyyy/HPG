@@ -1,0 +1,71 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_CreateAppointment' %}" class="service-form-3">
+        <div class="form-layout-3">
+
+            <!-- Form Fields -->
+            <div class="form-fields-3">
+                {% csrf_token %}
+                <!-- Pet Selection -->
+                <div class="form-group-3 floating-label-group">
+                    <select id="id_pet_3" name="pet" class="form-control-3" required>
+                        {% for pet in pets %}
+                        <option value="{{ pet.pk }}" {% if pet.pk == appointment.pet.pk %}selected{% endif %}>
+                            {{ pet.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="id_pet_3" class="floating-label">Pet</label>
+                </div>
+
+                <!-- Service Selection -->
+                <div class="form-group-3 floating-label-group">
+                    <select id="id_service_3" name="service" class="form-control-3" required>
+                        {% for service in services %}
+                        <option value="{{ service.pk }}" {% if service.pk == appointment.service.pk %}selected{% endif %}>
+                            {{ service.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="id_service_3" class="floating-label">Service</label>
+                </div>
+
+                <!-- Groomer Selection -->
+                <div class="form-group-3 floating-label-group">
+                    <select id="id_groomer_3" name="groomer" class="form-control-3">
+                        <option value="" {% if not appointment.groomer %}selected{% endif %}>No Preference</option>
+                        {% for groomer in groomers %}
+                        <option value="{{ groomer.pk }}" {% if groomer.pk == appointment.groomer.pk %}selected{% endif %}>
+                            {{ groomer.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="id_groomer_3" class="floating-label">Groomer</label>
+                </div>
+
+                <!-- Date Field -->
+                <div class="form-group-3 floating-label-group">
+                    <input type="date" id="id_date_3" name="date" class="form-control-3" placeholder=" " value="{{ appointment.date }}" required />
+                    <label for="id_date_3" class="floating-label">Date</label>
+                </div>
+
+                <!-- Time Field -->
+                <div class="form-group-3 floating-label-group">
+                    <input type="time" id="id_time_3" name="time" class="form-control-3" placeholder=" " value="{{ appointment.time }}" required />
+                    <label for="id_time_3" class="floating-label">Time</label>
+                </div>
+
+                <!-- Notes Field -->
+                <div class="form-group-3 floating-label-group">
+                    <textarea id="id_notes_3" name="notes" class="form-control-3" placeholder=" ">{{ appointment.notes }}</textarea>
+                    <label for="id_notes_3" class="floating-label">Notes</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary-3">Schedule Appointment</button>
+            </div>
+
+        </div>
+    </form>
+</div>

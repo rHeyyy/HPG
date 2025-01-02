@@ -1,0 +1,32 @@
+{% load static %}
+<div id="body">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'delete_user' user.id %}" class="profile-form">
+        <div class="text-center">
+            <label class="form-label">
+                Are you sure you want to delete this account?
+            </label>
+            {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" class="img-fluid rounded mb-3 profile-picture" alt="{{ user.last_name }}">
+            {% else %}
+            <img src="{% static 'default_profile.png' %}" class="img-fluid rounded mb-3 profile-picture" alt="Default Profile">
+            {% endif %}
+        </div>
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" disabled>
+        </div>
+        <div class="form-group">
+            <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" disabled>
+        </div>
+        <div class="form-group">
+            <input type="text" name="username" class="form-control" value="{{ user.username }}" disabled>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" class="form-control" value="{{ user.email }}" disabled>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm Deletion</button>
+    </form>
+</div>

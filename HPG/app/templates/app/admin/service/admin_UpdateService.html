@@ -1,0 +1,44 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_update' service.pk %}" class="service-form-3">
+        <div class="form-layout-3">
+            <!-- Image Section -->
+            <div class="form-image-3">
+                <label for="id_picture_3" class="form-label-3">Service Picture</label>
+                {% if service.picture %}
+                <img src="{{ service.picture.url }}" class="img-fluid service-picture-3" alt="{{ service.name }}">
+                {% else %}
+                <img src="{% static 'default_service.png' %}" class="img-fluid service-picture-3" alt="Default Service">
+                {% endif %}
+                <div class="file-input-wrapper-3">
+                    <label for="id_picture_3" class="file-label-3">Change Service Picture</label>
+                    <input type="file" id="id_picture_3" name="picture" class="file-input-3">
+                </div>
+            </div>
+
+           <!-- Form Fields -->
+            <div class="form-fields-3">
+                {% csrf_token %}
+                <div class="form-group-3 floating-label-group">
+                    <input type="text" id="id_name_3" name="name" class="form-control-3" placeholder=" " value="{{ service.name }}" required />
+                    <label for="id_name_3" class="floating-label">Service Name</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <textarea id="id_description_3" name="description" class="form-control-3 description-input" placeholder=" " required>{{ service.description }}</textarea>
+                    <label for="id_description_3" class="floating-label">Description</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input type="text" id="id_duration_3" name="duration" class="form-control-3" placeholder=" " value="{{ service.duration }}" required />
+                    <label for="id_duration_3" class="floating-label">Duration (HH:MM:SS)</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input type="number" id="id_price_3" name="price" class="form-control-3" placeholder=" " value="{{ service.price }}" step="0.01" required />
+                    <label for="id_price_3" class="floating-label">Price</label>
+                </div>
+                <button type="submit" class="btn btn-primary-3">Update Service</button>
+            </div>
+
+        </div>
+    </form>
+</div>

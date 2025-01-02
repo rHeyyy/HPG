@@ -1,0 +1,124 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <h1>All User Accounts</h1>
+    <input
+        type="text"
+        id="search-input"
+        placeholder="Search users..."
+    />
+</div>
+
+<div id="dashboard-stats" class="stats-grid">
+    <div class="stat-card">
+        <i class="fa-solid fa-users-between-lines" id="icon"></i>
+        <div>
+            <h3>{{ users|length }}</h3>
+            <p>Total Accounts</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <i class="fa-solid fa-boxes-packing" id="icon"></i>
+        <div>
+            <h3>{{ services|length }}</h3>
+            <p>Total Services</p>
+        </div>
+    </div>
+   
+</div>
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Users Section -->
+    <div id="users-section">
+        <table id="user-table" class="styled-table">
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-tbody">
+                {% for user in users %}
+                <tr>
+                    <td>
+                        {% if user.profile_picture %}
+                        <img
+                            src="{{ user.profile_picture.url }}"
+                            class="img-fluid rounded"
+                            alt="{{ user.last_name }}"
+                            
+                        />
+                        {% else %}
+                        <span>No image available</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if user.role == 'admin' %}Admin{% else %}User{% endif %}
+                    </td>
+                    <td>
+                        {% if user.role == 'user' %}
+                        <a class="action-link" 
+                           href="{% url 'set_admin' user.id %}" 
+                           onclick="return confirm('Are you sure you want to set this user to admin?');">
+                            <i class="fa-solid fa-user-plus" title="Add new admin"></i>
+                        </a>
+                    {% else %}
+                        <a class="action-link" 
+                           href="{% url 'remove_admin' user.id %}" 
+                           onclick="return confirm('Are you sure you want to remove this user as admin?');">
+                            <i class="fa-solid fa-user-minus" title="Remove admin"></i>
+                        </a>
+                    {% endif %}
+                        |
+                        <a
+                        class="action-link delete-link {% if user == request.user %}disabled{% endif %}"
+                        href="#"
+                        data-user-id1="{{ user.id }}"
+                        > 
+                        <i class="fa-solid fa-trash" title="Delete admin"></i>
+                        </a>
+                        |
+                        <a
+                        class="action-link edit-profile"
+                        href="#"
+                        data-user-id="{{ user.id }}"
+                        >
+                        <i class="fa-solid fa-pen" title="Update User"></i>
+                    </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal HTML -->
+<div id="profileModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!-- delete user Modal -->
+<div id="deleteModal" class="delete-modal hidden">
+    <div class="delete-modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="delete-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+

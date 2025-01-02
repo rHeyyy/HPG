@@ -1,0 +1,227 @@
+{% load static %}
+
+/* General Styles for Modals */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Apply a blur effect to the background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Content (Login/Register Forms) */
+.modal-content {
+    display: flex;
+    flex-direction: row; /* Arrange login/register side by side */
+    background-color: #fff;
+    color: #333;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    max-width: 90%;
+    width: 700px;
+    height: auto;
+    min-height: 400px;
+}
+
+/* Left Section */
+.modal-content .left-section {
+    background-color: #002B5B; /* Dark blue */
+    color: white;
+    padding: 40px 20px;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-content .left-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.modal-content .left-section p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.modal-content .left-section button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-content .left-section button:hover {
+    background-color: white;
+    color: #002B5B;
+}
+
+/* Right Section */
+.modal-content .right-section {
+    flex: 1.5;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+/* Header for Login/Register Form */
+.modal-content .right-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.modal-content .right-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.modal-content .right-section input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-content .right-section button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #002B5B; /* Dark blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .right-section button:hover {
+    background-color: #004080; /* Lighter blue */
+}
+
+.left-section button {
+    transition: all 0.3s ease;
+}
+
+.left-section button:hover {
+    background-color: white;
+    color: #002B5B;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Link between login and register */
+.modal-content .switch {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.modal-content .switch a {
+    color: #002B5B;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Login Button (Outside Modal) */
+.login-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    background-color: #FF6F61; /* Pet-themed color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Adding transform for scaling effect */
+}
+
+/* Hover Effect */
+.login-button:hover {
+    background-color: #FF4C3B; /* Darker color on hover */
+}
+
+/* Active Click Animation */
+.login-button:active {
+    transform: scale(0.95); /* Slightly shrink the button when clicked */
+    transition: transform 0.1s ease-out; /* Smooth transition */
+}
+
+/* Pulse Animation on Click */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1); /* Slightly grow the button */
+    }
+    100% {
+        transform: scale(1); /* Return to original size */
+    }
+}
+
+/* Apply pulse animation when the login button is clicked */
+.login-button.clicked {
+    animation: pulse 0.6s ease-out;
+}
+
+/* Grouping First Name and Last Name Side by Side */
+.form-group-row {
+    display: flex;
+    gap: 20px; /* Space between the two input fields */
+    justify-content: space-between;
+    margin-bottom: 15px; /* Add some spacing below the row */
+}
+
+.form-group {
+    flex: 1; /* Both inputs take up equal space */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%; /* Ensures inputs stretch to fill their container */
+    box-sizing: border-box;
+}
+
+/* Optional: Adjust input focus styling */
+.form-group input:focus {
+    border-color: #004080; /* Highlight color for input focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 64, 128, 0.3); /* Slight glow effect */
+}

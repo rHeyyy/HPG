@@ -1,0 +1,20 @@
+
+{% load static %}
+
+<br><br><br><br><br>
+{% for service in services %}
+        <div class="service-list">
+            <h2><a href="">{{service.name}}</a></h2>
+            {% if service.picture %}
+                <img src="{{ service.picture.url }}" alt="{{ service.name }}" width="200">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+            <p>{{service.description}}</p>
+            <p>Price: ${{ service.price }}</p>
+            <p>Duration: {{ service.duration_in_hours_and_minutes }}</p>
+        </div>
+    {% endfor %}    
+        <a href="{% url 'admin_CreateService' %}"> + New Service</a>
+        <a href="{% url 'admin_update' service.pk %}">  Edit Service</a>
+        <a href="{% url 'admin_delete' service.pk %}">  Delete Service</a>

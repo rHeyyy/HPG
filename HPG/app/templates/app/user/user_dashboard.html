@@ -1,0 +1,9 @@
+{% extends 'app/user/user_main.html' %}
+% load static %}
+{% block content %}
+<br><br><br><br><br>
+<h2>Welcome, {{ user.username }}</h2>
+<p>You are logged in as a regular user.</p>
+<a href="{% url 'logout' %}">Logout</a>
+
+{% endblock content %}

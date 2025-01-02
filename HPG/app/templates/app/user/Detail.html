@@ -1,0 +1,13 @@
+{% extends 'app/user/user_main.html' %}
+% load static %}
+{% block content %}
+<br><br><br><br><br>
+
+        <div class="service-list">
+            <h2><a href="">{{service.name}}</a></h2>
+            <p>{{service.description}}</p>
+            <p>Price: ${{ service.price }}</p>
+            <p>Duration: {{ service.duration_in_hours_and_minutes }}</p>
+        </div>
+
+{% endblock content %}

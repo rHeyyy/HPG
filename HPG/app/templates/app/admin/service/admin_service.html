@@ -1,0 +1,272 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <div id="header-section">
+        <div class="text-end">
+            <a 
+                href="javascript:void(0);" 
+                class="create-service button-57" 
+                id="create-service-btn">
+            <span class="text">
+            <i class="fa-solid fa-truck-fast"></i>
+                Service
+             </span>
+            <span>
+             Add New Service
+            </span>
+            </a>
+        </div>
+    </div>
+    <input
+        type="text"
+        id="search-input"
+        class="service"
+        placeholder="Search services..."
+    />
+</div>
+
+<!-- HTML !-->
+
+
+
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Service Management Section -->
+    <div id="users-section">
+
+        {% if services %}
+        <!-- Services Table -->
+        <div id="services-list" class="list-section">
+            <table id="user-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Service Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-tbody" class="service1">
+                    {% for service in services %}
+                    <tr>
+                        <td>
+                            {% if service.picture %}
+                            <img
+                                src="{{ service.picture.url }}"
+                                class="img-fluid rounded"
+                                alt="{{ service.name }}"
+                                style="max-width: 100px; max-height: 100px;"
+                            />
+                            {% else %}
+                            <span>No image available</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ service.name|truncatechars:20 }}</td>
+                        <td>{{ service.description|truncatechars:20 }}</td>
+                        <td>${{ service.price }}</td>
+                        <td>{{ service.duration_in_hours_and_minutes }}</td>
+                        <td>
+                                <a
+                                    class="action-link edit-service"
+                                    href=""
+                                    data-user-id="{{ service.pk }}"
+                                >
+                                    <i class="fa-solid fa-pen" title="Edit Service"></i>
+                                </a>
+                                |
+                                <a
+                                    class="action-link delete-service"
+                                    href=""
+                                    data-user-id2="{{ service.pk }}"
+                                >
+                                    <i class="fa-solid fa-trash" title="Delete Service"></i>
+                                </a>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">No services found. Start by adding a new service!</p>
+        {% endif %}
+    </div>
+</div>
+
+<!--CREATE SERVICE-->
+<div id="create-Service-Modal" class="create-Service-Modal">
+    <div class="create-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="create-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--UPDATE SERVICE-->
+<div id="Edit-Service-Modal" class="Edit-Service-Modal">
+    <div class="Edit-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Edit-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--DELETE SERVICE-->
+
+<div id="deleteService-Modal" class="delete-Service-Modal">
+    <div class="delete-modal-content1">
+        <span class="close-btn1">&times;</span>
+        <div id="delete-service-modal-form-container">
+            <!-- Dynamic form content will load here -->
+             
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// create service
+document.addEventListener("DOMContentLoaded", () => {
+    const addmodal = document.getElementById("create-Service-Modal");
+    const closeBtn = addmodal.querySelector(".close-btn1");
+    const addmodalFormContainer = document.getElementById("create-modal-form-container");
+    const addLinks = document.querySelectorAll(".create-service");
+
+    // Handle clicking on the edit link
+    addLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_service/create/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    addmodalFormContainer.innerHTML = data;
+                    addmodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    addmodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        addmodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+// delete service
+document.addEventListener("DOMContentLoaded", () => {
+    const delmodal1 = document.getElementById("deleteService-Modal");
+    const closeBtn = delmodal1.querySelector(".close-btn1");
+    const delmodalFormContainer1 = document.getElementById("delete-service-modal-form-container");
+    const delLinks1 = document.querySelectorAll(".delete-service");
+
+    // Handle clicking on the edit link
+    delLinks1.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const delserviceId = link.getAttribute("data-user-id2");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_service/${delserviceId}/delete/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    delmodalFormContainer1.innerHTML = data;
+                    delmodal1.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    delmodalFormContainer1.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        delmodal1.classList.remove("show"); // Close the modal
+    });
+});
+
+
+// Update service
+document.addEventListener("DOMContentLoaded", () => {
+    const updatemodal = document.getElementById("Edit-Service-Modal");
+    const closeBtn = updatemodal.querySelector(".close-btn1");
+    const modalFormContainer = document.getElementById("Edit-modal-form-container");
+    const editLinks = document.querySelectorAll(".edit-service");
+
+    // Handle clicking on the edit link
+    editLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const serviceId = link.getAttribute("data-user-id");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_service/${serviceId}/edit/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    modalFormContainer.innerHTML = data;
+                    updatemodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    modalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        updatemodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector(".service"); // Use querySelector to select the first matching element
+    const serviceTable = document.querySelector(".service1"); // Select the table with the class "service1"
+
+    // Real-time search functionality
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase().trim(); // Get the value of the input field
+        const rows = serviceTable.querySelectorAll("tr"); // Select all rows inside the table
+
+        rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const textContent = Array.from(cells)
+                .map((cell) => cell.textContent.toLowerCase())
+                .join(" "); // Concatenate all cell text into one string
+
+            // Check if the query is found in the row
+            if (textContent.includes(query)) {
+                row.style.display = ""; // Show the row if the query matches
+            } else {
+                row.style.display = "none"; // Hide the row if the query doesn't match
+            }
+        });
+    });
+});
+</script>

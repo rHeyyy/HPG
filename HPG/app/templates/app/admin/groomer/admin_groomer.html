@@ -1,0 +1,281 @@
+{% load static %}
+
+<!-- Search Section -->
+<div id="search-section">
+    <div id="header-section">
+        <div class="text-end">
+            <a 
+                href="javascript:void(0);" 
+                class="create-groomer button-57" 
+                id="create-service-btn">
+            <span class="text">
+                <i class="fa-solid fa-scissors"></i>
+                Groomer
+             </span>
+            <span>
+             Add New Groomers
+            </span>
+            </a>
+        </div>
+    </div>
+    <input
+        type="text"
+        id="search-input"
+        class="groom"
+        placeholder="Search for groomer..."
+    />
+</div>
+<div id="dashboard-stats" class="stats-grid">
+
+    <div class="stat-card">
+        <i class="fa-solid fa-user-tag" id="icon"></i>
+        <div>
+            <h3>{{ owners|length }}</h3>
+            <p>Total Owners</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-dog" id="icon"></i>
+        <div>
+            <h3>{{ dogs_count }}</h3>
+            <p>Total dog records</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-cat" id="icon"></i>
+        <div>
+            <h3>{{ cats_count }}</h3>
+            <p>Total cat records</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="dashboard-container" class="container main main-content">
+    <!-- Service Management Section -->
+    <div id="users-section">
+
+        {% if groomers %}
+        <!-- Services Table -->
+        <div id="services-list" class="list-section">
+            <table id="user-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Experience Years</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-tbody" class="groom1">
+                    {% for groomer in groomers %}
+                    <tr>
+                        <td>
+                            {% if groomer.picture %}
+                            <img
+                                src="{{ groomer.picture.url }}"
+                                class="img-fluid rounded"
+                                alt="{{ groomer.name }}"
+                                style="max-width: 100px; max-height: 100px;"
+                            />
+                            {% else %}
+                            <span>No image available</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ groomer.name }}</td>
+                        <td>{{ groomer.phone }}</td>
+                        <td>{{ groomer.email }}</td>
+                        <td>{{ groomer.experience_years }} years</td>
+                        <td>
+                                <a
+                                    class="action-link edit-groomer"
+                                    href=""
+                                    data-groomer-id="{{ groomer.pk }}"
+                                >
+                                    <i class="fa-solid fa-pen" title="Edit Groomer"></i>
+                                </a>
+                                |
+                                <a
+                                    class="action-link delete-groomer"
+                                    href=""
+                                    data-groomer-id2="{{ groomer.pk }}"
+                                >
+                                    <i class="fa-solid fa-trash" title="Delete Groomer"></i>
+                                </a>
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">No groomer found. Start by adding a new groomer!</p>
+        {% endif %}
+    </div>
+</div>
+
+
+<!--CREATE PET-->
+<div id="Create-Groomer-Modal" class="Create-Groomer-Modal">
+    <div class="Create-Groomer-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Create-Groomer-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--UPDATE PET-->
+<div id="Edit-Groomer-Modal" class="Edit-Groomer-Modal">
+    <div class="Edit-Groomer-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Edit-Groomer-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+<!--DELETE PET-->
+<div id="Delete-Groomer-Modal" class="Delete-Groomer-Modal">
+    <div class="Delete-Groomer-modal-content">
+        <span class="close-btn1">&times;</span>
+        <div id="Delete-Groomer-modal-form-container">
+            <!-- Dynamic form content will load here -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+// Delete Groomer
+document.addEventListener("DOMContentLoaded", () => {
+    const delGroomermodal = document.getElementById("Delete-Groomer-Modal");
+    const closeBtn = delGroomermodal.querySelector(".close-btn1");
+    const delGroomermodalFormContainer = document.getElementById("Delete-Groomer-modal-form-container");
+    const delGroomerLinks = document.querySelectorAll(".delete-groomer");
+
+    // Handle clicking on the edit link
+    delGroomerLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const GroomerId = link.getAttribute("data-groomer-id2");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_groomer/${GroomerId}/delete/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    delGroomermodalFormContainer.innerHTML = data;
+                    delGroomermodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    delGroomermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        delGroomermodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+
+// Update Groomer
+document.addEventListener("DOMContentLoaded", () => {
+    const updateGroomermodal = document.getElementById("Edit-Groomer-Modal");
+    const closeBtn = updateGroomermodal.querySelector(".close-btn1");
+    const GroomermodalFormContainer = document.getElementById("Edit-Groomer-modal-form-container");
+    const editGroomerLinks = document.querySelectorAll(".edit-groomer");
+
+    // Handle clicking on the edit link
+    editGroomerLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const GroomerId = link.getAttribute("data-groomer-id");
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_groomer/${GroomerId}/edit/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    GroomermodalFormContainer.innerHTML = data;
+                    updateGroomermodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    GroomermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        updateGroomermodal.classList.remove("show"); // Close the modal
+    });
+});
+
+    // create Groomer
+document.addEventListener("DOMContentLoaded", () => {
+    const addgroomermodal = document.getElementById("Create-Groomer-Modal");
+    const closeBtn = addgroomermodal.querySelector(".close-btn1");
+    const addgroomermodalFormContainer = document.getElementById("Create-Groomer-modal-form-container");
+    const addgroomerLinks = document.querySelectorAll(".create-groomer");
+
+    // Handle clicking on the edit link
+    addgroomerLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Load the form dynamically via fetch
+            fetch(`/admin_groomer/create/`)
+                .then((response) => response.text())
+                .then((data) => {
+                    addgroomermodalFormContainer.innerHTML = data;
+                    addgroomermodal.classList.add("show"); // Show the modal
+                })
+                .catch((error) => {
+                    addgroomermodalFormContainer.innerHTML = "<h2>Error loading form</h2>";
+                    console.error("Error:", error);
+                });
+        });
+    });
+
+    // Close modal using the close button
+    closeBtn.addEventListener("click", () => {
+        addgroomermodal.classList.remove("show"); // Close the modal
+    });
+});
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchInputgroom = document.querySelector(".groom"); // Use querySelector to select the first matching element
+    const groomTable = document.querySelector(".groom1"); // Select the table with the class "service1"
+
+    // Real-time search functionality
+    searchInputgroom.addEventListener("input", () => {
+        const query = searchInputgroom.value.toLowerCase().trim(); // Get the value of the input field
+        const rows = groomTable.querySelectorAll("tr"); // Select all rows inside the table
+
+        rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const textContent = Array.from(cells)
+                .map((cell) => cell.textContent.toLowerCase())
+                .join(" "); // Concatenate all cell text into one string
+
+            // Check if the query is found in the row
+            if (textContent.includes(query)) {
+                row.style.display = ""; // Show the row if the query matches
+            } else {
+                row.style.display = "none"; // Hide the row if the query doesn't match
+            }
+        });
+    });
+});
+</script>

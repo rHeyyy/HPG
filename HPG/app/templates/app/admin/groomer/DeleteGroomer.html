@@ -1,0 +1,72 @@
+{% load static %}
+
+<div id="body-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'admin_deleteGroomer' groomer.pk %}" class="service-form-3">
+        <div class="form-layout-3">
+            <!-- Image Section -->
+            <div class="form-image-3">
+                <label for="id_picture_3" class="form-label-3">Groomer Picture</label>
+                {% if groomer.picture %}
+                <img src="{{ groomer.picture.url }}" class="img-fluid service-picture-3" alt="{{ groomer.name }}">
+                {% else %}
+                <img src="{% static 'default_service.png' %}" class="img-fluid service-picture-3" alt="Default Service">
+                {% endif %}
+            </div>
+           
+            <!-- Form Fields -->
+            <div class="form-fields-3">
+                {% csrf_token %}
+                <div class="form-group-3 floating-label-group">
+                    <input
+                        type="text" 
+                        id="id_name_3"
+                        name="name"
+                        class="form-control-3"
+                        placeholder=" "
+                        value="{{ groomer.name }}"
+                        disabled
+                    />
+                    <label for="id_name_3" class="floating-label">Groomer Name</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input
+                        type="text"
+                        id="id_phone_3"
+                        name="phone"
+                        class="form-control-3"
+                        placeholder=" "
+                        value="{{ groomer.phone }}"
+                        disabled
+                    />
+                    <label for="id_phone_3" class="floating-label">Phone Number</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input
+                        type="email"
+                        id="id_email_3"
+                        name="email"
+                        class="form-control-3"
+                        placeholder=" "
+                        value="{{ groomer.email }}"
+                        disabled
+                    />
+                    <label for="id_email_3" class="floating-label">E-Mail</label>
+                </div>
+                <div class="form-group-3 floating-label-group">
+                    <input
+                        type="number"
+                        id="id_experience_years_3"
+                        name="experience_years"
+                        class="form-control-3"
+                        placeholder=" "
+                        value="{{ groomer.experience_years }}"
+                        disabled
+                    />
+                    <label for="id_experience_years_3" class="floating-label">Experience Years</label>
+                </div>
+                <button type="submit" class="btn btn-primary-3">Delete Groomer</button>
+            </div>
+            
+        </div>
+    </form>
+</div>
